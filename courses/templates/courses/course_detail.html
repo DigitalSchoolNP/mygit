@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block post_detail_link %}
+<li>{{ object.title }}</li>
+{% endblock %}
+{% block content %}
+<h1>Course Detail View Page</h1>
+
+<h3 class="cent">{{ object.title }}</h3>
+
+<div class="row">
+	<div class="col-md-8">
+		{% for lesson in object.lessons %}
+			{% for video in lesson.videos %}
+				<video controls controlsList="nodownload" src="{{video.video_file.url}}" width="700" height="400">
+					Sorry, your browser doesn't support embedded videos.
+				</video>
+			{% endfor %}
+		{% endfor %}
+	</div>
+
+	<div col-md-4>
+		{% for lesson in object.lessons %}
+					<h3><a href="#">{{ lesson.title }}</a></h3>
+					<ol>
+						{% for video in lesson.videos %}
+							<h4><a href="#">{{ video.title }}</a></h4>
+						{% endfor %}
+					</ol>
+				{% endfor %}
+	</div>
+</div>
+
+{% endblock %}
+<!-- poster="{{object.thumbnail.url}}"-->

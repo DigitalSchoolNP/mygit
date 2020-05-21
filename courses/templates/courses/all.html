@@ -1,0 +1,31 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+<br>
+<h1>Available courses</h1>
+<br>
+<div class="row">
+{% for course in courses %}
+  <div class="col-sm-4">
+    <div class="card" style="width: 18rem;">
+      <a href="{% url 'courses:single_course' course.slug %}">
+        <img src="{{course.thumbnail.url}}" class="card-img-top" alt="...">
+      </a>
+
+      <div class="card-body">
+        <h5 class="card-title">{{ course.title }}</h5>
+        <p class="card-text">{{ course.description|truncatewords:10 }}</p>
+        <a href="#" class="btn btn-primary">Read More</a>
+        <a href="{{course.get_absolute_url}}" class="btn btn-primary">View Demo</a>
+      </div>
+    </div>
+    <br>
+  </div>
+
+    {% cycle "" "" "</div><hr/><div class='row'>" %}
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}

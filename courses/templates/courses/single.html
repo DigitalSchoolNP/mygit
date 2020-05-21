@@ -1,0 +1,32 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+<br>
+<div class="row">
+  <div class="col-md-8">
+    <h1>{{course.title}} Demo Session</h1>
+  </div>
+
+  <div class="col-md-4">
+          <a href="{% url 'courses:start_course' course.slug %}" class="btn btn-primary btn-lg" role="button" >Start the Course</a>
+  </div>
+</div>
+<hr>
+<div class="row">
+  {% for vid in video %}
+              {% if vid.free %}
+             <div class="col-md-4">
+
+                 <h4>{{vid.title}} <span class="badge badge-secondary">Demo</span></h4>
+                 <video controls controlsList="nodownload" src="{{vid.video_file.url}}" width="300" height="200"></video>
+                 <br>
+                 <hr>
+              {% endif %}
+             </div>
+
+  {% endfor %}
+<br>
+
+
+</div>
+  {% endblock %}

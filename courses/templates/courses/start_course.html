@@ -1,0 +1,23 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+{% if object is not None %}
+           <h3>{{ object.title }}</h3>
+            <div class="row">
+                {% for les in object.lesson_set.all %}
+                    <h5>Lesson: {{ les.title }}</h5>
+
+                    <div class="col-md-4">
+                        {% for vid in les.video_set.all %}
+                             <p>{{vid.title}}</p>
+                            <video controls controlsList="nodownload" src="{{vid.video_file.url}}" width="300" height="200"></video>
+                        <hr>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+{% else %}
+<p>Please make payment through esewa or bank or personally in our address to learn this course.</p>
+{% endif %}
+{% endblock %}
+md
