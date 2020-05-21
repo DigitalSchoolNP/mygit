@@ -1,32 +1,45 @@
 {% extends 'base.html'  %}
-
 {% block content %}
-<br>
-<div class="row">
-  <div class="col-md-8">
-    <h1>{{course.title}} Demo Session</h1>
-  </div>
+    <br>
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{course.title}} Demo Session</h1>
+        </div>
+        <div class="col-md-4">
+              <a href="{% url 'courses:start_course' course.slug %}" class="btn btn-primary btn-lg" role="button" >Start the Course</a>
+        </div>
+    </div>
+    <hr>
+    <br>
+    <div class="row">
+        <div class="col-md-8">
+             {% for vid in video %}
+                  {% if vid.free %}
+                    <div class="col-md-4">
+                         <h3>{{vid.title}} <span class="badge badge-secondary">Demo</span></h3><br>
+                        <video controls controlsList="nodownload" src="{{vid.video_file.url}}" width="500" height="400"></video>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
 
-  <div class="col-md-4">
-          <a href="{% url 'courses:start_course' course.slug %}" class="btn btn-primary btn-lg" role="button" >Start the Course</a>
-  </div>
-</div>
-<hr>
-<div class="row">
-  {% for vid in video %}
-              {% if vid.free %}
-             <div class="col-md-4">
+        <div class="col-md-4">
+            <h6>Price :<span class="badge badge-info">Rs. {{course.price}}</span></h6>
+            <h6>Valid Period :<span class="badge badge-success">Lifetime</span></h6>
+            <br>{% if course.syllabus%}
+                <div class="col-md-10">
+                    <marquee behavior="scroll" direction="left" scrollamount="3"> Course Contents/Syllabus </marquee>
+                </div>
 
-                 <h4>{{vid.title}} <span class="badge badge-secondary">Demo</span></h4>
-                 <video controls controlsList="nodownload" src="{{vid.video_file.url}}" width="300" height="200"></video>
-                 <br>
-                 <hr>
-              {% endif %}
-             </div>
-
-  {% endfor %}
-<br>
-
-
-</div>
-  {% endblock %}
+                <div class="" align="center">
+                    <object data="{{ course.syllabus.url }}" type="application/pdf" width="400" height="500">
+                        <embed src="{{ course.syllabus.url }}" type="application/pdf">
+                            <p>This browser does not support PDFs. Please download the PDF to view it: <a href="{{ course.syllabus.url }}">Download PDF</a>.</p>
+                        </embed>
+                    </object>
+                </div>
+            {% endif %}
+        </div>
+        <br>
+    </div>
+{% endblock %}

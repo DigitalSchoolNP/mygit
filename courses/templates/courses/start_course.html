@@ -1,7 +1,9 @@
 {% extends 'base.html'  %}
 
 {% block content %}
-{% if object is not None %}
+{{object}}
+
+{% if object is not None  %}
            <h3>{{ object.title }}</h3>
             <div class="row">
                 {% for les in object.lesson_set.all %}
@@ -9,9 +11,13 @@
 
                     <div class="col-md-4">
                         {% for vid in les.video_set.all %}
-                             <p>{{vid.title}}</p>
-                            <video controls controlsList="nodownload" src="{{vid.video_file.url}}" width="300" height="200"></video>
-                        <hr>
+                            {% if not vid.free%}
+                                 <p>{{vid.title}}</p>
+                                 <p>{{vid.free}}</p>
+                                <video controls controlsList="nodownload" src="{{vid.video_file.url}}" width="300" height="200"></video>
+                                <hr>
+                            {% endif %}
+
                         {% endfor %}
                     </div>
                 {% endfor %}
